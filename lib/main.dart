@@ -39,12 +39,29 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    allCards = [
+      CardModel(
+          name: "",
+          prices: Prices(usd: "X.X"),
+          imageUris: ImageUris(large: ""),
+          colorIdentity: []),
+      CardModel(
+          name: "",
+          prices: Prices(usd: "X.X"),
+          imageUris: ImageUris(large: ""),
+          colorIdentity: []),
+      CardModel(
+          name: "",
+          prices: Prices(usd: "X.X"),
+          imageUris: ImageUris(large: ""),
+          colorIdentity: []),
+    ];
     _getData();
   }
 
   void _getData() async {
     allCards = (await ApiService().getCard())!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(
+    Future.delayed(const Duration(seconds: 10)).then((value) => setState(
           () {},
         ));
   }

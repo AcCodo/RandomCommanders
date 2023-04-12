@@ -34,6 +34,7 @@ class CardModel {
     this.colors,
     this.colorIdentity,
     this.keywords,
+    this.cardFaces,
     this.legalities,
     this.games,
     this.reserved,
@@ -99,6 +100,7 @@ class CardModel {
   List<String>? colors;
   List<String>? colorIdentity;
   List<String>? keywords;
+  List<CardFace>? cardFaces;
   Legalities? legalities;
   List<String>? games;
   bool? reserved;
@@ -176,6 +178,10 @@ class CardModel {
         keywords: json["keywords"] == null
             ? []
             : List<String>.from(json["keywords"]!.map((x) => x)),
+        cardFaces: json["card_faces"] == null
+            ? []
+            : List<CardFace>.from(
+                json["card_faces"]!.map((x) => CardFace.fromJson(x))),
         legalities: json["legalities"] == null
             ? null
             : Legalities.fromJson(json["legalities"]),
@@ -263,6 +269,9 @@ class CardModel {
             : List<dynamic>.from(colorIdentity!.map((x) => x)),
         "keywords":
             keywords == null ? [] : List<dynamic>.from(keywords!.map((x) => x)),
+        "card_faces": cardFaces == null
+            ? []
+            : List<dynamic>.from(cardFaces!.map((x) => x.toJson())),
         "legalities": legalities?.toJson(),
         "games": games == null ? [] : List<dynamic>.from(games!.map((x) => x)),
         "reserved": reserved,
@@ -307,6 +316,83 @@ class CardModel {
         "prices": prices?.toJson(),
         "related_uris": relatedUris?.toJson(),
         "purchase_uris": purchaseUris?.toJson(),
+      };
+}
+
+class CardFace {
+  CardFace({
+    this.object,
+    this.name,
+    this.manaCost,
+    this.typeLine,
+    this.oracleText,
+    this.colors,
+    this.power,
+    this.toughness,
+    this.artist,
+    this.artistId,
+    this.illustrationId,
+    this.imageUris,
+    this.flavorName,
+    this.colorIndicator,
+  });
+
+  String? object;
+  String? name;
+  String? manaCost;
+  String? typeLine;
+  String? oracleText;
+  List<String>? colors;
+  String? power;
+  String? toughness;
+  String? artist;
+  String? artistId;
+  String? illustrationId;
+  ImageUris? imageUris;
+  String? flavorName;
+  List<String>? colorIndicator;
+
+  factory CardFace.fromJson(Map<String, dynamic> json) => CardFace(
+        object: json["object"],
+        name: json["name"],
+        manaCost: json["mana_cost"],
+        typeLine: json["type_line"],
+        oracleText: json["oracle_text"],
+        colors: json["colors"] == null
+            ? []
+            : List<String>.from(json["colors"]!.map((x) => x)),
+        power: json["power"],
+        toughness: json["toughness"],
+        artist: json["artist"],
+        artistId: json["artist_id"],
+        illustrationId: json["illustration_id"],
+        imageUris: json["image_uris"] == null
+            ? null
+            : ImageUris.fromJson(json["image_uris"]),
+        flavorName: json["flavor_name"],
+        colorIndicator: json["color_indicator"] == null
+            ? []
+            : List<String>.from(json["color_indicator"]!.map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "object": object,
+        "name": name,
+        "mana_cost": manaCost,
+        "type_line": typeLine,
+        "oracle_text": oracleText,
+        "colors":
+            colors == null ? [] : List<dynamic>.from(colors!.map((x) => x)),
+        "power": power,
+        "toughness": toughness,
+        "artist": artist,
+        "artist_id": artistId,
+        "illustration_id": illustrationId,
+        "image_uris": imageUris?.toJson(),
+        "flavor_name": flavorName,
+        "color_indicator": colorIndicator == null
+            ? []
+            : List<dynamic>.from(colorIndicator!.map((x) => x)),
       };
 }
 

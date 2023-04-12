@@ -34,7 +34,7 @@ class MTGCardWidget extends StatelessWidget {
                   children: [
                     Text(card!.colorIdentity!.join()),
                     Text(' | '),
-                    Text('TCGPlayer: ' + card!.prices!.usd)
+                    Text('\$' + card!.prices!.usd)
                   ],
                 )
               ],
