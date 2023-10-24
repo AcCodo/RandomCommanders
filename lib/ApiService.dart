@@ -6,45 +6,43 @@ import 'package:http/http.dart' as http;
 import 'CardModel.dart';
 
 class ApiService {
-  Future<List<CardModel>?> getCard() async {
+  Future<List<CardModel>> getCard() async {
     try {
+      List<CardModel> lista = [];
+
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endpoint);
       var response = await http.get(url);
 
-      CardModel model1 = CardModel(),
-          model2 = CardModel(),
-          model3 = CardModel();
-
       while (response.statusCode != 200) {
         response = await http.get(url);
       }
       if (response.statusCode == 200) {
-        print(response.body);
-        model1 = cardModelFromJson(response.body);
+        lista.add(cardModelFromJson(response.body));
       }
+
       response = await http.get(url);
       while (response.statusCode != 200) {
         response = await http.get(url);
       }
       if (response.statusCode == 200) {
-        print(response.body);
-        model2 = cardModelFromJson(response.body);
+        lista.add(cardModelFromJson(response.body));
       }
+
       response = await http.get(url);
       while (response.statusCode != 200) {
         response = await http.get(url);
       }
       if (response.statusCode == 200) {
-        print(response.body);
-        model3 = cardModelFromJson(response.body);
+        lista.add(cardModelFromJson(response.body));
       }
 
-      List<CardModel> lista = [model1, model2, model3];
       lista = fixLista(lista);
+
+      if (lista == []) {}
 
       return lista;
     } catch (e) {
-      log(e.toString());
+      throw Exception(e);
     }
   }
 

@@ -27,15 +27,11 @@ class MTGCardWidget extends StatelessWidget {
                 Center(
                     child: Text(
                   card!.name!,
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(card!.colorIdentity!.join()),
-                    Text(' | '),
-                    Text('\$' + card!.prices!.usd)
-                  ],
+                  children: [Text(card!.colorIdentity!.join())],
                 )
               ],
             )

@@ -6,8 +6,6 @@ import 'dart:convert';
 
 CardModel cardModelFromJson(String str) => CardModel.fromJson(json.decode(str));
 
-String cardModelToJson(CardModel data) => json.encode(data.toJson());
-
 class CardModel {
   CardModel({
     this.object,
@@ -79,9 +77,9 @@ class CardModel {
   String? object;
   String? id;
   String? oracleId;
-  List<int>? multiverseIds;
-  int? tcgplayerId;
-  int? cardmarketId;
+  List<num>? multiverseIds;
+  num? tcgplayerId;
+  num? cardmarketId;
   String? name;
   String? lang;
   DateTime? releasedAt;
@@ -92,7 +90,7 @@ class CardModel {
   String? imageStatus;
   ImageUris? imageUris;
   String? manaCost;
-  int? cmc;
+  num? cmc;
   String? typeLine;
   String? oracleText;
   String? power;
@@ -135,8 +133,8 @@ class CardModel {
   bool? textless;
   bool? booster;
   bool? storySpotlight;
-  int? edhrecRank;
-  int? pennyRank;
+  num? edhrecRank;
+  num? pennyRank;
   Prices? prices;
   RelatedUris? relatedUris;
   PurchaseUris? purchaseUris;
@@ -147,7 +145,7 @@ class CardModel {
         oracleId: json["oracle_id"],
         multiverseIds: json["multiverse_ids"] == null
             ? []
-            : List<int>.from(json["multiverse_ids"]!.map((x) => x)),
+            : List<num>.from(json["multiverse_ids"]!.map((x) => x)),
         tcgplayerId: json["tcgplayer_id"],
         cardmarketId: json["cardmarket_id"],
         name: json["name"],
@@ -236,87 +234,6 @@ class CardModel {
             ? null
             : PurchaseUris.fromJson(json["purchase_uris"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "object": object,
-        "id": id,
-        "oracle_id": oracleId,
-        "multiverse_ids": multiverseIds == null
-            ? []
-            : List<dynamic>.from(multiverseIds!.map((x) => x)),
-        "tcgplayer_id": tcgplayerId,
-        "cardmarket_id": cardmarketId,
-        "name": name,
-        "lang": lang,
-        "released_at":
-            "${releasedAt!.year.toString().padLeft(4, '0')}-${releasedAt!.month.toString().padLeft(2, '0')}-${releasedAt!.day.toString().padLeft(2, '0')}",
-        "uri": uri,
-        "scryfall_uri": scryfallUri,
-        "layout": layout,
-        "highres_image": highresImage,
-        "image_status": imageStatus,
-        "image_uris": imageUris?.toJson(),
-        "mana_cost": manaCost,
-        "cmc": cmc,
-        "type_line": typeLine,
-        "oracle_text": oracleText,
-        "power": power,
-        "toughness": toughness,
-        "colors":
-            colors == null ? [] : List<dynamic>.from(colors!.map((x) => x)),
-        "color_identity": colorIdentity == null
-            ? []
-            : List<dynamic>.from(colorIdentity!.map((x) => x)),
-        "keywords":
-            keywords == null ? [] : List<dynamic>.from(keywords!.map((x) => x)),
-        "card_faces": cardFaces == null
-            ? []
-            : List<dynamic>.from(cardFaces!.map((x) => x.toJson())),
-        "legalities": legalities?.toJson(),
-        "games": games == null ? [] : List<dynamic>.from(games!.map((x) => x)),
-        "reserved": reserved,
-        "foil": foil,
-        "nonfoil": nonfoil,
-        "finishes":
-            finishes == null ? [] : List<dynamic>.from(finishes!.map((x) => x)),
-        "oversized": oversized,
-        "promo": promo,
-        "reprint": reprint,
-        "variation": variation,
-        "set_id": setId,
-        "set": cardModelSet,
-        "set_name": setName,
-        "set_type": setType,
-        "set_uri": setUri,
-        "set_search_uri": setSearchUri,
-        "scryfall_set_uri": scryfallSetUri,
-        "rulings_uri": rulingsUri,
-        "prints_search_uri": printsSearchUri,
-        "collector_number": collectorNumber,
-        "digital": digital,
-        "rarity": rarity,
-        "card_back_id": cardBackId,
-        "artist": artist,
-        "artist_ids": artistIds == null
-            ? []
-            : List<dynamic>.from(artistIds!.map((x) => x)),
-        "illustration_id": illustrationId,
-        "border_color": borderColor,
-        "frame": frame,
-        "frame_effects": frameEffects == null
-            ? []
-            : List<dynamic>.from(frameEffects!.map((x) => x)),
-        "security_stamp": securityStamp,
-        "full_art": fullArt,
-        "textless": textless,
-        "booster": booster,
-        "story_spotlight": storySpotlight,
-        "edhrec_rank": edhrecRank,
-        "penny_rank": pennyRank,
-        "prices": prices?.toJson(),
-        "related_uris": relatedUris?.toJson(),
-        "purchase_uris": purchaseUris?.toJson(),
-      };
 }
 
 class CardFace {
@@ -374,26 +291,6 @@ class CardFace {
             ? []
             : List<String>.from(json["color_indicator"]!.map((x) => x)),
       );
-
-  Map<String, dynamic> toJson() => {
-        "object": object,
-        "name": name,
-        "mana_cost": manaCost,
-        "type_line": typeLine,
-        "oracle_text": oracleText,
-        "colors":
-            colors == null ? [] : List<dynamic>.from(colors!.map((x) => x)),
-        "power": power,
-        "toughness": toughness,
-        "artist": artist,
-        "artist_id": artistId,
-        "illustration_id": illustrationId,
-        "image_uris": imageUris?.toJson(),
-        "flavor_name": flavorName,
-        "color_indicator": colorIndicator == null
-            ? []
-            : List<dynamic>.from(colorIndicator!.map((x) => x)),
-      };
 }
 
 class ImageUris {
@@ -421,15 +318,6 @@ class ImageUris {
         artCrop: json["art_crop"],
         borderCrop: json["border_crop"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "small": small,
-        "normal": normal,
-        "large": large,
-        "png": png,
-        "art_crop": artCrop,
-        "border_crop": borderCrop,
-      };
 }
 
 class Legalities {
@@ -502,30 +390,6 @@ class Legalities {
         premodern: json["premodern"],
         predh: json["predh"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "standard": standard,
-        "future": future,
-        "historic": historic,
-        "gladiator": gladiator,
-        "pioneer": pioneer,
-        "explorer": explorer,
-        "modern": modern,
-        "legacy": legacy,
-        "pauper": pauper,
-        "vintage": vintage,
-        "penny": penny,
-        "commander": commander,
-        "oathbreaker": oathbreaker,
-        "brawl": brawl,
-        "historicbrawl": historicbrawl,
-        "alchemy": alchemy,
-        "paupercommander": paupercommander,
-        "duel": duel,
-        "oldschool": oldschool,
-        "premodern": premodern,
-        "predh": predh,
-      };
 }
 
 class Prices {
@@ -553,15 +417,6 @@ class Prices {
         eurFoil: json["eur_foil"],
         tix: json["tix"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "usd": usd,
-        "usd_foil": usdFoil,
-        "usd_etched": usdEtched,
-        "eur": eur,
-        "eur_foil": eurFoil,
-        "tix": tix,
-      };
 }
 
 class PurchaseUris {
@@ -580,12 +435,6 @@ class PurchaseUris {
         cardmarket: json["cardmarket"],
         cardhoarder: json["cardhoarder"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "tcgplayer": tcgplayer,
-        "cardmarket": cardmarket,
-        "cardhoarder": cardhoarder,
-      };
 }
 
 class RelatedUris {
@@ -607,11 +456,4 @@ class RelatedUris {
         tcgplayerInfiniteDecks: json["tcgplayer_infinite_decks"],
         edhrec: json["edhrec"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "gatherer": gatherer,
-        "tcgplayer_infinite_articles": tcgplayerInfiniteArticles,
-        "tcgplayer_infinite_decks": tcgplayerInfiniteDecks,
-        "edhrec": edhrec,
-      };
 }
