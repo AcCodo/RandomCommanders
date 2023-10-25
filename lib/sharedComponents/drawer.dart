@@ -38,6 +38,13 @@ class _GeneralDrawerState extends State<GeneralDrawer> {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.book_rounded),
+            title: const Text('Regras do REDH'),
+            onTap: () {
+              Navigator.pushNamed(context, "/rules");
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.add_chart),
             title: const Text('Gerador Bulk'),
             onTap: () {

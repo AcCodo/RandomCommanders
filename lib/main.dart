@@ -2,6 +2,7 @@ import 'package:commanders/pages/bulkGenPage.dart';
 import 'package:commanders/pages/configPage.dart';
 import 'package:commanders/pages/debugPage.dart';
 import 'package:commanders/pages/mainPage.dart';
+import 'package:commanders/pages/rulesPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +16,7 @@ void main() {
       "/debug": (context) => const DebugPage(),
       "/config": (context) => const ConfigPage(),
       "/bulkGen": (context) => const BulkGenPage(),
+      "/rules": (context) => const RulesPage(),
     },
     initialRoute: "/",
   ));
