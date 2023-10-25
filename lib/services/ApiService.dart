@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:commanders/constants.dart';
 import 'package:commanders/models/ResponsePackageModel.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/CardModel.dart';
 
