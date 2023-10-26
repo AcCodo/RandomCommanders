@@ -1,9 +1,7 @@
 import 'package:commanders/constants.dart';
 import 'package:commanders/models/ConfigModel.dart';
 import 'package:commanders/models/ResponsePackageModel.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import '../models/CardModel.dart';
 
 class ApiService {

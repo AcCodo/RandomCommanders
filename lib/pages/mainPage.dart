@@ -3,7 +3,6 @@ import 'package:commanders/models/ResponsePackageModel.dart';
 import 'package:commanders/services/ApiService.dart';
 import 'package:commanders/sharedComponents/MTGCardWidget.dart';
 import 'package:commanders/sharedComponents/MTGCardWidget_small.dart';
-import 'package:commanders/sharedComponents/RulesOptionWidget.dart';
 import 'package:commanders/sharedComponents/appBar.dart';
 import 'package:commanders/sharedComponents/drawer.dart';
 import 'package:flutter/material.dart';

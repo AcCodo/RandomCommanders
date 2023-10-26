@@ -1,5 +1,4 @@
 import 'package:commanders/models/ConfigModel.dart';
-import 'package:commanders/sharedComponents/RulesOptionWidget.dart';
 import 'package:commanders/sharedComponents/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
