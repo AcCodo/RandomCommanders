@@ -55,8 +55,7 @@ class _ConfigPageState extends State<ConfigPage> {
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         validator: (value) {
           if (value != null &&
-              int.tryParse(value)! < 1 &&
-              int.tryParse(value)! > 10) {
+              (int.tryParse(value)! < 1 || int.tryParse(value)! > 10)) {
             return "Número de Cartas geradas precisa ser entre 1 e 10";
           } else if (value == null || value.isEmpty) {
             return "Campo obrigatório";
@@ -71,6 +70,21 @@ class _ConfigPageState extends State<ConfigPage> {
   }
 
   Widget _buildSaveButton() {
-    return Placeholder();
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          final isValid = _formKey.currentState!.validate();
+          if (isValid) {
+            Provider.of<ConfigModel>(context, listen: false)
+                .setCardsToDraw(int.tryParse(genQntd.text)!);
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Salvo com Sucesso')));
+            Navigator.of(context).pop(true);
+          }
+        },
+        child: const Text('Salvar'),
+      ),
+    );
   }
 }

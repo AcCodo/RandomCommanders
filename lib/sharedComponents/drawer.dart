@@ -47,13 +47,13 @@ class _GeneralDrawerState extends State<GeneralDrawer> {
           ListTile(
             leading: const Icon(Icons.add_chart),
             title: const Text('Gerador Bulk'),
-            onTap: () {
-              Navigator.pushNamed(context, "/bulkGen");
+            onTap: () async {
+              await Navigator.pushNamed(context, "/bulkGen");
             },
           ),
           ListTile(
             leading: const Icon(Icons.candlestick_chart),
-            title: const Text('Configuração'),
+            title: const Text('Configurações'),
             onTap: () {
               Navigator.pushNamed(context, "/config");
             },

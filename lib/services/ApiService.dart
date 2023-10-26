@@ -34,7 +34,8 @@ class ApiService {
     }
   }
 
-  Future<List<ResponsePackageModel>> getBulk(int numberOfPlayers, ConfigModel config) async {
+  Future<List<ResponsePackageModel>> getBulk(
+      int numberOfPlayers, ConfigModel config) async {
     List<ResponsePackageModel> listaPack = [];
 
     var url = Uri.parse(ApiConstants.baseUrl + getEndpoint(config.edhRule));

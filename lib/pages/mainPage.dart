@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     final config = Provider.of<ConfigModel>(context, listen: false).getThis();
     futureCards = ApiService().getCard(config);
+    setState(() {});
   }
 
   @override
@@ -53,6 +54,8 @@ class _MyAppState extends State<MyApp> {
               itemCount: package.length,
               itemBuilder: (context, index) {
                 final card = package[index].card;
+                Provider.of<ConfigModel>(context)
+                    .addToRecentCalls(package[index]);
                 if (zoomOut) {
                   return MTGCardWidget_small(
                     card: card,
@@ -78,6 +81,7 @@ class _MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'btn1',
             onPressed: () {
               setState(() {
                 zoomOut = !zoomOut;
@@ -100,6 +104,7 @@ class _MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'btn2',
             onPressed: () {
               setState(() {
                 zoomOut = !zoomOut;
@@ -122,6 +127,7 @@ class _MyAppState extends State<MyApp> {
 
   void refreshCards() async {
     final config = Provider.of<ConfigModel>(context, listen: false).getThis();
+    Provider.of<ConfigModel>(context, listen: false).cleanRecentCalls();
     futureCards = ApiService().getCard(config);
     setState(() {});
   }

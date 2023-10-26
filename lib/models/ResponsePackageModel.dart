@@ -8,4 +8,9 @@ class ResponsePackageModel extends ChangeNotifier {
   ResponsePackageModel({required this.card, required this.responseBody}) {
     notifyListeners();
   }
+
+  @override
+  String toString() {
+    return responseBody;
+  }
 }
