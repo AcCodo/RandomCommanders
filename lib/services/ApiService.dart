@@ -1,53 +1,63 @@
 import 'package:commanders/constants.dart';
+import 'package:commanders/models/ConfigModel.dart';
 import 'package:commanders/models/ResponsePackageModel.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../models/CardModel.dart';
 
 class ApiService {
-  Future<List<ResponsePackageModel>> getCard() async {
+  Future<List<ResponsePackageModel>> getCard(ConfigModel config) async {
     try {
       List<ResponsePackageModel> listaPack = [];
 
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endpoint);
-      var response = await http.get(url);
+      var url = Uri.parse(ApiConstants.baseUrl + getEndpoint(config.edhRule));
 
-      while (response.statusCode != 200) {
-        response = await http.get(url);
-      }
-      if (response.statusCode == 200) {
+      for (int i = 0; i < config.cardsToDraw; i++) {
+        var response = await http.get(url);
+
+        if (response.statusCode != 200) {
+          throw Exception(
+              "Erro na requisição Scryfall\nStatus code: ${response.statusCode}");
+        }
+
         listaPack.add(ResponsePackageModel(
             card: cardModelFromJson(response.body),
             responseBody: response.body));
-      }
 
-      response = await http.get(url);
-      while (response.statusCode != 200) {
-        response = await http.get(url);
-      }
-      if (response.statusCode == 200) {
-        listaPack.add(ResponsePackageModel(
-            card: cardModelFromJson(response.body),
-            responseBody: response.body));
-      }
-
-      response = await http.get(url);
-      while (response.statusCode != 200) {
-        response = await http.get(url);
-      }
-      if (response.statusCode == 200) {
-        listaPack.add(ResponsePackageModel(
-            card: cardModelFromJson(response.body),
-            responseBody: response.body));
+        Future.delayed(const Duration(milliseconds: 50));
       }
 
       listaPack = fixLista(listaPack);
-
-      if (listaPack == []) {}
 
       return listaPack;
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  Future<List<ResponsePackageModel>> getBulk(int numberOfPlayers, ConfigModel config) async {
+    List<ResponsePackageModel> listaPack = [];
+
+    var url = Uri.parse(ApiConstants.baseUrl + getEndpoint(config.edhRule));
+
+    for (int i = 0; i < numberOfPlayers; i++) {
+      var response = await http.get(url);
+
+      if (response.statusCode != 200) {
+        throw Exception(
+            "Erro na requisição Scryfall\nStatus code: ${response.statusCode}");
+      }
+
+      listaPack.add(ResponsePackageModel(
+          card: cardModelFromJson(response.body), responseBody: response.body));
+
+      Future.delayed(const Duration(milliseconds: 50));
+    }
+
+    listaPack = fixLista(listaPack);
+
+    return listaPack;
   }
 
   List<ResponsePackageModel> fixLista(List<ResponsePackageModel> listaPack) {
@@ -75,5 +85,16 @@ class ApiService {
       listaPack[i].card = lista;
     }
     return listaPack;
+  }
+
+  String getEndpoint(EdhRules edhRule) {
+    switch (edhRule) {
+      case (EdhRules.commander):
+        return ApiConstants.endpoint;
+      case (EdhRules.oathbreaker):
+        return ApiConstants.endpointOathbreaker;
+      case (EdhRules.pauper):
+        return ApiConstants.endpointPDH;
+    }
   }
 }

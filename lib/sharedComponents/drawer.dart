@@ -15,15 +15,15 @@ class _GeneralDrawerState extends State<GeneralDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
-            decoration: const BoxDecoration(color: Color(0xff764abc)),
-            accountName: const Text(
+          const UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Color(0xff764abc)),
+            accountName: Text(
               "Bem-vindo!",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: const Text(
+            accountEmail: Text(
               '',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -31,7 +31,11 @@ class _GeneralDrawerState extends State<GeneralDrawer> {
             ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
-              child: SvgPicture.asset('scryfall.svg'),
+              child: Icon(
+                Icons.person,
+                size: 40,
+                color: Colors.black,
+              ), //SvgPicture.asset('scryfall.svg'),
             ),
           ),
           ListTile(

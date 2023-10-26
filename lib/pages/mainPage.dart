@@ -1,10 +1,13 @@
+import 'package:commanders/models/ConfigModel.dart';
 import 'package:commanders/models/ResponsePackageModel.dart';
 import 'package:commanders/services/ApiService.dart';
 import 'package:commanders/sharedComponents/MTGCardWidget.dart';
 import 'package:commanders/sharedComponents/MTGCardWidget_small.dart';
+import 'package:commanders/sharedComponents/RulesOptionWidget.dart';
 import 'package:commanders/sharedComponents/appBar.dart';
 import 'package:commanders/sharedComponents/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -20,7 +23,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    futureCards = ApiService().getCard();
+    final config = Provider.of<ConfigModel>(context, listen: false).getThis();
+    futureCards = ApiService().getCard(config);
   }
 
   @override
@@ -28,6 +32,7 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: myAppBar(),
       drawer: const GeneralDrawer(),
+      bottomNavigationBar: _buildBottomBar(),
       body: FutureBuilder<List<ResponsePackageModel>>(
         future: futureCards,
         builder: (context, snapshot) {
@@ -117,7 +122,39 @@ class _MyAppState extends State<MyApp> {
   }
 
   void refreshCards() async {
-    futureCards = ApiService().getCard();
+    final config = Provider.of<ConfigModel>(context, listen: false).getThis();
+    futureCards = ApiService().getCard(config);
     setState(() {});
+  }
+
+  Widget _buildBottomBar() {
+    return Consumer<ConfigModel>(builder: (context, config, child) {
+      return BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_one),
+            label: 'Commander',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_two),
+            label: 'Oathbreaker',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_3),
+            label: 'Pauper',
+          ),
+        ],
+        currentIndex: config.edhRule.index,
+        onTap: (index) {
+          setState(() {
+            if (index != config.edhRule.index) {
+              config.edhRule = EdhRules.values[index];
+              refreshCards();
+            }
+          });
+        },
+      );
+    });
   }
 }
