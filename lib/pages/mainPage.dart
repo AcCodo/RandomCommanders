@@ -1,6 +1,7 @@
 import 'package:commanders/models/ResponsePackageModel.dart';
 import 'package:commanders/services/ApiService.dart';
 import 'package:commanders/sharedComponents/MTGCardWidget.dart';
+import 'package:commanders/sharedComponents/MTGCardWidget_small.dart';
 import 'package:commanders/sharedComponents/appBar.dart';
 import 'package:commanders/sharedComponents/drawer.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Future<List<ResponsePackageModel>> futureCards;
+  bool zoomOut = false;
 
   @override
   void initState() {
@@ -35,8 +37,7 @@ class _MyAppState extends State<MyApp> {
             );
           } else if (snapshot.hasError) {
             return Center(
-              child:
-                  Text("Erro ao buscar as cartas " + snapshot.error.toString()),
+              child: Text("Erro ao buscar as cartas ${snapshot.error}"),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
@@ -48,17 +49,42 @@ class _MyAppState extends State<MyApp> {
               itemCount: package.length,
               itemBuilder: (context, index) {
                 final card = package[index].card;
-                return MTGCardWidget(
-                  card: card,
-                );
+                if (zoomOut) {
+                  return MTGCardWidget_small(
+                    card: card,
+                  );
+                } else {
+                  return MTGCardWidget(
+                    card: card,
+                  );
+                }
               },
               separatorBuilder: (context, index) => const Divider(),
             );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: refreshCards, child: const Icon(Icons.replay_outlined)),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                zoomOut = !zoomOut;
+              });
+            },
+            child: zoomOut
+                ? const Icon(Icons.zoom_out_map)
+                : const Icon(Icons.zoom_in_map),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          FloatingActionButton(
+              onPressed: refreshCards,
+              child: const Icon(Icons.replay_outlined)),
+        ],
+      ),
     );
   }
 

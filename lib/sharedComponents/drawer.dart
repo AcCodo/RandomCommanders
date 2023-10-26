@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class GeneralDrawer extends StatefulWidget {
   const GeneralDrawer({super.key});
@@ -14,15 +15,15 @@ class _GeneralDrawerState extends State<GeneralDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: Color(0xff764abc)),
-            accountName: Text(
+          UserAccountsDrawerHeader(
+            decoration: const BoxDecoration(color: Color(0xff764abc)),
+            accountName: const Text(
               "Bem-vindo!",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: Text(
+            accountEmail: const Text(
               '',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -30,11 +31,7 @@ class _GeneralDrawerState extends State<GeneralDrawer> {
             ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.black,
-              ),
+              child: SvgPicture.asset('scryfall.svg'),
             ),
           ),
           ListTile(

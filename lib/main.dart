@@ -9,7 +9,8 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      colorScheme:
+          ColorScheme.fromSeed(seedColor: const Color.fromRGBO(43, 37, 58, 1)),
     ),
     routes: {
       "/": (context) => const MyApp(),
