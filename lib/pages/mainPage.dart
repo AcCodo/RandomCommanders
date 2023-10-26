@@ -64,7 +64,13 @@ class _MyAppState extends State<MyApp> {
           }
         },
       ),
-      floatingActionButton: Column(
+      floatingActionButton: _buildActionButtons(),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    if (!zoomOut) {
+      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
@@ -84,8 +90,30 @@ class _MyAppState extends State<MyApp> {
               onPressed: refreshCards,
               child: const Icon(Icons.replay_outlined)),
         ],
-      ),
-    );
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                zoomOut = !zoomOut;
+              });
+            },
+            child: zoomOut
+                ? const Icon(Icons.zoom_out_map)
+                : const Icon(Icons.zoom_in_map),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+              onPressed: refreshCards,
+              child: const Icon(Icons.replay_outlined)),
+        ],
+      );
+    }
   }
 
   void refreshCards() async {

@@ -9,5 +9,5 @@ class ApiConstants {
 }
 
 class VersionConstants {
-  static String version = '0.3.1';
+  static String version = '0.4.2';
 }

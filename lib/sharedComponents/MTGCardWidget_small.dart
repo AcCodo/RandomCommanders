@@ -27,13 +27,13 @@ class MTGCardWidget_small extends StatelessWidget {
         }
       },
       child: Container(
-        height: 250,
+        height: 240,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Container(
-                height: 250,
+                height: 240,
                 child: Image.network(
                   card!.imageUris!.large!,
                   fit: BoxFit.scaleDown,
@@ -44,10 +44,13 @@ class MTGCardWidget_small extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      card!.name!,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                    Flexible(
+                      child: Text(
+                        softWrap: true,
+                        card!.name!,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Row(
                       children: [
